@@ -266,7 +266,7 @@ That's it we now have a 3 node kubernetes cluster (1 Server, and 2 Agents).<br/>
 The Agents (worker) nodes will run the containers, and the servers role is to manage the Kubernetes API, and control the scheduling of the pods/containers to the appropriate agent.<br/>
 We can now have a little play before any "production" workload is released to the cluster.
 
-### Create Pods and perform checks
+### Exercise 1: Create Pods, Perform Checks and Cleanup
 _run on the __server__ node_ <br/>
 In this section we will create two webservers, and a debugging pod: 
 * web01 - nginx webserver
@@ -330,4 +330,25 @@ exi
 Lets check the pod is removed (or removing)
 ```bash
 $ sudo kubectl get pods
+
+...
+NAME    READY   STATUS    RESTARTS   AGE
+web01   1/1     Running   0          19m
+web02   1/1     Running   0          19m
+```
+
+Now we've finishe with this exercise lets cleanup, we'll do that by deleting the pods. We can do this by either deleting all pods in this (default) namespace in a single command or by deleting pods by specifying their name.
+```bash
+# (option 1) Delete all pods in namespace
+$ sudo kubectl delete pods --all
+...
+pod "web01" deleted
+pod "web02" deleted
+```
+```bash
+# (option 2) Delete pods by specifying the pod name, the granular option.
+$ sudo kubectl delete pods web01 web02
+...
+pod "web01" deleted
+pod "web02" deleted
 ```
