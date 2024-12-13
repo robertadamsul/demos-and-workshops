@@ -253,14 +253,81 @@ demo-k8s-wrk01   Ready    <none>                      13m     v1.31.3+k3s1   10.
 demo-k8s-wrk02   Ready    <none>                      6m52s   v1.31.3+k3s1   10.61.20.83   <none>        Ubuntu 24.04.1 LTS   6.8.0-31-generic   containerd://1.7.23-k3s2
 ```
 
-
 ### Remove the join token:
 _run on the __agent__ nodes_ <br/>
 Now that the Agent nodes have joined the cluster we should remove the k3s-node-token we copied over earlier.
 ```bash
 rm /tmp/k3s-node-token
 ```
+<br/>
 
-### Status Summary
+## Play Time 
 That's it we now have a 3 node kubernetes cluster (1 Server, and 2 Agents).<br/>
-The Agents (worker) nodes will run the containers, and the servers role is to manage the Kubernetes API, and control the scheduling of the pods/containers to the appropriate agent.
+The Agents (worker) nodes will run the containers, and the servers role is to manage the Kubernetes API, and control the scheduling of the pods/containers to the appropriate agent.<br/>
+We can now have a little play before any "production" workload is released to the cluster.
+
+### Create Pods and perform checks
+_run on the __server__ node_ <br/>
+In this section we will create two webservers, and a debugging pod: 
+* web01 - nginx webserver
+* web02 - httpd webserver
+* debug - alpine linux (really small linux distro).
+
+```bash
+# create pod named nginx01 using the nginx container image
+$ sudo kubectl run web01 --image=nginx
+
+# create pod named nginx01 using the nginx container image
+$ sudo kubectl run web02 --image=httpd
+```
+OK lets check the status of these pods and check they are running, and make a note of the IP Addresses they've been assigned.
+```bash
+$ sudo kubectl get pods -o wide
+
+...
+NAME    READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
+web01   1/1     Running   0          32s   10.42.3.4   demo-k8s-wrk01   <none>           <none>
+web02   1/1     Running   0          26s   10.42.4.6   demo-k8s-wrk02   <none>           <none>
+```
+
+Great the pods are running and we have the IP Addresses.<br/>
+__note: these addresses are in the CIDR range we defined for the pod-network_ <br/>
+Lets run a pod that we will connect into interactive shell, and we'll set it to remove when we exit.
+```bash
+# Create the debugging pod, and lets curl the webservers we just created.
+$ sudo kubectl run -i -t --rm debug --image=alpine -- /bin/sh
+
+...
+If you don't see a command prompt, try pressing enter.
+/ #
+```
+Now we have a terminal shell session directly into the pod, lets do some debugging of the webservers.
+```sh
+# Lets ping the pods IP Addresses and see if we get a response
+$ ping 10.42.3.4
+$ ping 10.42.3.4
+
+# Now lets curl the webserver pods, to do this we need to install curl (as this is a minimal pod).
+$ apk add curl
+
+# web01 website test
+$ curl -v http://10.42.3.4
+...
+< Server: nginx/1.27.3
+<title>Welcome to nginx!</title>
+
+
+# web02 website test
+$ curl -v http://10.42.4.6
+...
+< Server: Apache/2.4.62 (Unix)
+<html><body><h1>It works!</h1></body></html>
+
+# Everything looks good lets exit from the debugging pod
+exi
+```
+
+Lets check the pod is removed (or removing)
+```bash
+$ sudo kubectl get pods
+```
