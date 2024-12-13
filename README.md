@@ -83,9 +83,9 @@ PROMPT_DIRTRIM=1
 
 
 ## Install Kubernetes (K3s) - Server / Control-Plane
-|     |     |
-| --- | --- |
+
 | __Node:__ | __`demo-k8s-ctr01`__ |
+| --- | --- |
 | Type:   | Server |
 | Roles:  | control-plane, etcd, master |
 
@@ -194,9 +194,9 @@ $ rm -f ~/k3s-node-token
 <br/>
 
 ## Install Kubernetes (K3s) - Agent / Workers
-|     |     |
-| --- | --- |
+
 | __Node:__ | __`demo-k8s-wrk01` / `demo-k8s-wrk02`__ |
+| --- | --- |
 | Type:   | Agent/Worker |
 | Roles:  | n/a |
 
