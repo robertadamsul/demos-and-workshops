@@ -340,6 +340,8 @@ __note: these addresses are in the CIDR range we defined for the pod-network_ <b
     web01   1/1     Running   0          19m
     web02   1/1     Running   0          19m
     ```
+    <br/>
+    <br/>
 
 * **Alternatively: Create a Pod from a manifest file:**
 
@@ -429,7 +431,9 @@ __note: these addresses are in the CIDR range we defined for the pod-network_ <b
     ```
 
 <br/>
+<br/>
 
+#### Cleanup
 Now we've finished with this exercise lets cleanup, we'll do that by deleting the pods. We can do this by either deleting all pods in this (default) namespace in a single command or by deleting pods by specifying their name.
 ```bash
 # (option 1) Delete all pods in namespace
