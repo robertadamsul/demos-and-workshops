@@ -416,15 +416,12 @@ __note: these addresses are in the CIDR range we defined for the pod-network_ <b
 
     # Exec into the Debug pod and check curl is installed.
     $ sudo kubectl exec -i -t debug -- /bin/sh
+    ...
     / #
-    ...
-    
     $ curl --help
-    ...
     Usage: curl [options...] <url>
     -d, --data <data>           HTTP POST data
     -f, --fail                  Fail fast with no output on HTTP errors
-    ...
 
     # now exit the pod
     $ exit
