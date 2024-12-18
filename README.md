@@ -18,7 +18,7 @@ Each application or service will have its own subdirectory. For example:
 
 | Service | Details |
 | --- | --- |
-| __[Kubernetes](/robertadamsul/demos-and-workshops/kubernetes)__ | 3 Node Kubernetes cluster using K3s, workshop |
+| __[Kubernetes](/kubernetes)__ | 3 Node Kubernetes cluster using K3s, workshop |
 
 ## License
 

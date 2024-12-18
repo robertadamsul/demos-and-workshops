@@ -242,4 +242,4 @@ rm /tmp/k3s-node-token
 ## Next Step
 We now need to install the Kubernetes components so we can create a Cluster.
 
-[__[01_cluster-init]__](/robertadamsul/demos-and-workshops/kubernetes/01_cluster-init.md)
+[__[01_cluster-init]__](/kuberenetes/docs/01_cluster-init.md)

@@ -20,3 +20,10 @@ K8s - Kubernetes demo project.
 10.43.0.0/16    # Service Network used byKubernetes
 ```
 <br/>
+
+## Docs
+| Session | Description |
+| --- | --- |
+| __[00_pre-reqs](/kuberenetes/docs/00_prereqs.md)__ | Pre-Requisits, these are configurations that need to be performed on the OS prior to creating a Kubernetes cluster. |
+| __[01_pre-reqs](/kuberenetes/docs/00_prereqs.md)__ | Cluster-Initialisation, Creating the 3 node K3s cluster. |
+| __[02_pods](/kuberenetes/docs/00_prereqs.md)__ | Creation of pods, testing pod connectivity. |
