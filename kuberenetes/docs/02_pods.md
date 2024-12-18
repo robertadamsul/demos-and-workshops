@@ -1,4 +1,4 @@
-# Kubernetes - Exercise 1: Create Pods, Perform Checks and Cleanup
+# Kubernetes - Create Pods, Perform Checks and Cleanup
 K8s - Kubernetes demo project.
 
 Now have a 3 node kubernetes cluster (1 Server, and 2 Agents).<br/>
