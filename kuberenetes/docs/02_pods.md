@@ -13,10 +13,10 @@ In this section we will create two webservers, and a debugging pod:
 * debug - alpine linux (really small linux distro).
 
 ```bash
-# create pod named nginx01 using the nginx container image
+# create pod named web01 using the nginx container image
 $ sudo kubectl run web01 --image=nginx
 
-# create pod named nginx01 using the nginx container image
+# create pod named web02 using the httpd container image
 $ sudo kubectl run web02 --image=httpd
 ```
 OK lets check the status of these pods and check they are running, and make a note of the IP Addresses they've been assigned.
