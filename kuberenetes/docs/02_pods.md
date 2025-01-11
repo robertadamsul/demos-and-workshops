@@ -166,7 +166,121 @@ __note: these addresses are in the CIDR range we defined for the pod-network_ <b
     $ exit
     ```
 
+## [Bonus] Create a PowerShell Pod
+Bonus Content -- create a debugging Pod that is running PowerShell on linux.
+  
+We can either install PowerShell ontop of an Linux OS Image (such as Alpine, Ubuntu, ... etc) or we can use a pre-packaged image already available on container registries.
+
+### Create Pod
+
+* **(Option1) Pre-Packaged Image:** <br/>
+  This image has already been created by the community it is an Alpine Linux container and PowerShell has been installed onto it.<br/>
+  [image:m365pnp/powershell](https://hub.docker.com/r/m365pnp/powershell)
+
+  <details>
+    Lets run a pod that we will connect into interactive shell, and we'll set it to remove when we exit.
+    ```bash
+    # Create the debugging pod, and lets curl the webservers we just created.
+    $ sudo kubectl run -i -t --rm powershell --image=m365pnp/powershell:latest --command -- /bin/sh
+
+    ...
+    If you don't see a command prompt, try pressing enter.
+    / #
+    ```
+  </details>
+
 <br/>
+
+* **(Option2) Roll your own:** <br/>
+  For this we will install powershell ontop of a ubuntu image. Following guide: [Microsoft - Installing PowerShell on Linux](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.4#installation-via-direct-download)
+
+  <details>
+    Lets create a manifest file, and using the command section we will perform the installation steps.
+
+    ```bash
+    $ vi powershell-ubuntu.yaml
+    ```
+
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: powershell-ubuntu
+      name: powershell-ubuntu
+    spec:
+      containers:
+      - name: powershell-ubuntu
+        image: ubuntu
+        command:
+        - sh
+        - -c
+        - |
+          apt-get update;
+          apt-get install -y wget;
+          wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb;
+          dpkg -i powershell_7.4.6-1.deb_amd64.deb;
+          apt-get install -y -f;
+          tail -f /dev/null
+        readinessProbe:
+          exec:
+            command: ["test", "-f", "/usr/bin/pwsh"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+    status: {}
+    ```
+
+    Connect to the Pod
+    ```bash
+    # Apply the manifest file
+    $ sudo kubectl apply -f powershell-ubuntu.yaml
+
+    # check the pod is running.
+    $ sudo kubectl get pods powershell-ubuntu
+    ...
+    NAME                READY   STATUS    RESTARTS   AGE
+    powershell-ubuntu   1/1     Running   0          6m27s
+
+    # Exec into the Debug pod and check curl is installed.
+    $ sudo kubectl exec -i -t powershell-ubuntu -- /bin/bash
+
+    ...
+    If you don't see a command prompt, try pressing enter.
+    / #
+    ```
+  </details>
+
+### PowerShell(ing)
+Now we have a terminal shell session directly into the pod, lets go into powershell.
+```bash
+# Run PowerShell terminal
+$ pwsh
+```
+
+```powershell
+# Lets run some powershell, cmdlets such as invoke-webrequest
+/> Invoke-WebRequest "https://ifconfig.me"
+/> $(Invoke-WebRequest "https://ifconfig.me").RawContent
+/> Invoke-WebRequest "https://ifconfig.me" | Select-Object RawContent
+/> Invoke-WebRequest "https://ifconfig.me" | Select-Object -ExpandProperty RawContent
+
+# Check the content of the root directory using powershell
+/> Get-ChildItem /
+/> Get-ChildItem | Sort-Object -Descending -Property LastWriteTime | Select-Object Name, Size
+
+# Everything looks good lets exit from powershell, this will take us back to sh
+/> exit
+```
+
+```sh
+# exit the Pod, and let kuberentes delete it for us
+$ exit
+```
+
 <br/>
 
 ## Cleanup

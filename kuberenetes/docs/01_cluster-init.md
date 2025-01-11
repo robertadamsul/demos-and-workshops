@@ -105,14 +105,27 @@ Taints:             node-role.kubernetes.io/master=true:NoSchedule
 <br/>
 
 ### Copy Node Join Token to Agents:
+#### (Option 1) Manual copy/paste of token
+```bash
+# print to screen the node-join-token
+$ sudo cat /var/lib/rancher/k3s/server/node-token
+```
+Copy this token to your clipboard.
+
+Now connect to each worker node and create a file and paste the join token into it.
+```bash
+$ vi /tmp/k3s-node-token
+```
+
+#### (Option 2) scp the k3s-node-token file
 Before we install K3s on the Agents we should copy the join token so this can be called during the Agent install process.
 ```bash
 # copy the node-token to home, and chown
 $ sudo cp /var/lib/rancher/k3s/server/node-token ~/k3s-node-token && sudo chown $(whoami):$(whoami) ~/k3s-node-token
 
 # now copy this file over to each node using scp
-$ scp ~/k3s-node-token demo-k8s-wrk01:~/k3s-node-token
-$ scp ~/k3s-node-token demo-k8s-wrk02:~/k3s-node-token
+$ scp ~/k3s-node-token demo-k8s-wrk01:/tmp/k3s-node-token
+$ scp ~/k3s-node-token demo-k8s-wrk02:/tmp/k3s-node-token
 
 # finally remove the join token from the home directory
 $ rm -f ~/k3s-node-token
