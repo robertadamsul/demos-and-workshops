@@ -28,6 +28,7 @@ On the server node we will be adding a taint, to make this node not available fo
 ```yaml
 tls-san:
   - "demo-k8s-ctr01"
+  - "demo-k8s-ctr01.lan"
   - "10.61.20.81"
 node-taint: 
   - "node-role.kubernetes.io/master=true:NoSchedule"

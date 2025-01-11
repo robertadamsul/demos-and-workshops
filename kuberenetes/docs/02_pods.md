@@ -8,9 +8,9 @@ We can now have a little play before any "production" workload is released to th
 ## Overview
 _run on the __server__ node_ <br/>
 In this section we will create two webservers, and a debugging pod: 
-* web01 - nginx webserver
-* web02 - httpd webserver
-* debug - alpine linux (really small linux distro).
+* web01 - [nginx](https://hub.docker.com/_/nginx/tags) webserver
+* web02 - [httpd](https://hub.docker.com/_/httpd) webserver
+* debug - [alpine-linux](https://hub.docker.com/_/alpine) (really small linux distro).
 
 ```bash
 # create pod named web01 using the nginx container image

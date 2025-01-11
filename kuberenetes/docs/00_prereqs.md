@@ -10,9 +10,9 @@ $ vi /etc/hosts
 ```
 ```bash
 # demo-kubernetes nodes
-10.61.20.81 demo-k8s-ctr01  # Control-Plane
-10.61.20.82 demo-k8s-wrk01  # Worker
-10.61.20.83 demo-k8s-wrk02  # Worker
+10.61.20.81 demo-k8s-ctr01.lan demo-k8s-ctr01  # Control-Plane
+10.61.20.82 demo-k8s-wrk01.lan demo-k8s-wrk01  # Worker
+10.61.20.83 demo-k8s-wrk02.lan demo-k8s-wrk02  # Worker
 ```
 
 ### Create Firewall rules
