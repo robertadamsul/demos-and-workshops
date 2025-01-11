@@ -205,4 +205,4 @@ That's it we now have a 3 node kubernetes cluster (1 Server, and 2 Agents).<br/>
 The Agents (worker) nodes will run the containers, and the servers role is to manage the Kubernetes API, and control the scheduling of the pods/containers to the appropriate agent.<br/>
 We can now have a little play before any "production" workload is released to the cluster.
 
-[__[02_pods]__](/kuberenetes/docs/02_pods.md)
+[__[02_pods]__](/kubernetes/docs/02_pods.md)

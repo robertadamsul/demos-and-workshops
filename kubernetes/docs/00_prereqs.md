@@ -69,4 +69,4 @@ PROMPT_DIRTRIM=1
 ## Next Step
 We now need to install the Kubernetes components so we can create a Cluster.
 
-[__[01_cluster-init]__](/kuberenetes/docs/01_cluster-init.md)
+[__[01_cluster-init]__](/kubernetes/docs/01_cluster-init.md)
