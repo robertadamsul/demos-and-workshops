@@ -179,6 +179,7 @@ We can either install PowerShell ontop of an Linux OS Image (such as Alpine, Ubu
 
   <details>
     Lets run a pod that we will connect into interactive shell, and we'll set it to remove when we exit.
+
     ```bash
     # Create the debugging pod, and lets curl the webservers we just created.
     $ sudo kubectl run -i -t --rm powershell --image=m365pnp/powershell:latest --command -- /bin/sh
@@ -187,6 +188,7 @@ We can either install PowerShell ontop of an Linux OS Image (such as Alpine, Ubu
     If you don't see a command prompt, try pressing enter.
     / #
     ```
+
   </details>
 
 <br/>
