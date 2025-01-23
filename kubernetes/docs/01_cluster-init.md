@@ -150,7 +150,7 @@ To install as an agent/worker node we need to specify the `K3S_URL` to connect t
 
 ```bash
 # Elevate to root
-$ sudo su
+$ sudo su -
 
 # Install K3s as an Agent, connected to our demo-k8s-ctr01 cluster
 $ curl -sfL https://get.k3s.io | K3S_URL=https://demo-k8s-ctr01:6443 K3S_TOKEN_FILE=/tmp/k3s-node-token sh -s -
