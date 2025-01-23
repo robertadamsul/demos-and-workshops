@@ -101,10 +101,10 @@ __note: these addresses are in the CIDR range we defined for the pod-network_ <b
     apiVersion: v1
     kind: Pod
     metadata:
-    creationTimestamp: null
-    labels:
-      run: debug
-    name: debug
+      creationTimestamp: null
+      labels:
+        run: debug
+      name: debug
     spec:
     containers:
     - command:
@@ -124,10 +124,10 @@ __note: these addresses are in the CIDR range we defined for the pod-network_ <b
     apiVersion: v1
     kind: Pod
     metadata:
-    creationTimestamp: null
-    labels:
-      run: debug
-    name: debug
+      creationTimestamp: null
+      labels:
+        run: debug
+      name: debug
     spec:
     containers:
     - command:
